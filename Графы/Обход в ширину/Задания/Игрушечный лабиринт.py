@@ -1,7 +1,7 @@
 from collections import deque
 
 n, m = map(int, input().split())
-maze = [input() for i in range(n)]
+maze = [input().split() for i in range(n)]
 
 queue = deque([(0, 0, 0)])
 visited = [[False] * m for j in range(n)]
@@ -31,4 +31,8 @@ while queue:
         if not visited[nx][ny]:
             visited[nx][ny] = True
             queue.append((nx, ny, step + 1))
-#
+#4 5
+#00001
+#01102
+#02100
+#00100
