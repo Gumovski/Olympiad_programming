@@ -31,3 +31,4 @@ while queue:
         if not visited[nx][ny]:
             visited[nx][ny] = True
             queue.append((nx, ny, step + 1))
+#
