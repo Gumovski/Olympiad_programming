@@ -1,0 +1,14 @@
+// Dijkstra Graph
+graph {
+	overlap=false splines=true
+	node [fillcolor=lightblue shape=circle style=filled]
+	A
+	A -- B [label=1]
+	A -- C [label=4]
+	B
+	B -- C [label=2]
+	B -- D [label=5]
+	C
+	C -- D [label=1]
+	D
+}
