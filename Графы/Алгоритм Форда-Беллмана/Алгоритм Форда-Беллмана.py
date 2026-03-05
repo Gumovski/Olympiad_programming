@@ -51,18 +51,18 @@ def bellman_ford_path(graph, start, finish):
         current = parents[current]
     return path[::-1]
 
-def bellman_ford_get_negative_cycle(graph, start):
-    distances = {node: float('inf') for node in graph}
+def bellman_ford_get_negative_cycle(graph):
+    distances = {node: 0 for node in graph}
     parents = {node: None for node in graph}
-    distances[start] = 0
-
     # n-1 проходов
     for _ in range(len(graph) - 1):
         for node in graph:
             for vertex, weight in graph[node]:
                 # Добавлена проверка parents[node] != vertex
-                if distances[node] != float('inf') and distances[node] + weight < distances[vertex]:
-                    if parents[node] != vertex:
+                if distances[node] + weight < distances[vertex]:
+                    is_undirected = any(n == node and wt == weight
+                                        for n, wt in graph.get(vertex, []))
+                    if not (is_undirected and parents[node] == vertex):
                         distances[vertex] = distances[node] + weight
                         parents[vertex] = node
 
@@ -70,11 +70,13 @@ def bellman_ford_get_negative_cycle(graph, start):
     relaxed_node = None
     for node in graph:
         for vertex, weight in graph[node]:
-            if distances[node] != float('inf') and distances[node] + weight < distances[vertex]:
-                # Добавлена такая же проверка
-                if parents[node] != vertex:
-                    distances[vertex] = distances[node] + weight
+            if distances[node] + weight < distances[vertex]:
+                is_undirected = any(n == node and wt == weight
+                                    for n, wt in graph.get(vertex, []))
+                if not (is_undirected and parents[node] == vertex):
+                    parents[vertex] = node
                     relaxed_node = vertex
+                    break
 
     if relaxed_node is None:
         return None
@@ -104,4 +106,4 @@ if __name__ == '__main__':
         'D': [('B', 5), ('C', 1)],
         'E': [('C', 1)],
     }
-    print(bellman_ford_get_negative_cycle(graph, 'A'))
+    print(bellman_ford_get_negative_cycle(graph))

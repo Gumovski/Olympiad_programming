@@ -1,14 +1,21 @@
-// Dijkstra Graph
-graph {
+// Graph
+digraph {
 	overlap=false splines=true
 	node [fillcolor=lightblue shape=circle style=filled]
 	A
-	A -- B [label=1]
-	A -- C [label=4]
 	B
-	B -- C [label=2]
-	B -- D [label=5]
 	C
-	C -- D [label=1]
 	D
+	E
+	A -> B [label=1]
+	A -> C [label=-4]
+	B -> A [label=1]
+	B -> C [label=2]
+	B -> D [label=5]
+	C -> B [label=2]
+	C -> A [label=-4]
+	C -> D [label=1]
+	D -> B [label=5]
+	D -> C [label=1]
+	E -> C [label=1]
 }
